@@ -8,7 +8,40 @@ const expenseRoutes = require("./routes/expense");
 
 const app = express();
 
-app.use(cors());
+// ==========================================
+// CORS
+// ==========================================
+
+const allowedOrigins = [
+    "https://expense-tracker-frontend-fumx.onrender.com",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+
+        // Allow requests without an origin
+        // such as Postman/server-side requests
+        if (!origin) {
+            return callback(null, true);
+        }
+
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error("Not allowed by CORS"));
+    },
+
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+
+    allowedHeaders: [
+        "Content-Type",
+        "Authorization"
+    ]
+}));
+
 app.use(express.json());
 
 
@@ -22,6 +55,7 @@ const db = mysql.createConnection({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
+
     ssl: process.env.DB_SSL === "true"
         ? { rejectUnauthorized: false }
         : undefined
@@ -30,11 +64,17 @@ const db = mysql.createConnection({
 db.connect((err) => {
 
     if (err) {
-        console.error("❌ MySQL connection failed:", err.message);
+        console.error(
+            "❌ MySQL connection failed:",
+            err.message
+        );
+
         return;
     }
 
-    console.log("✅ MySQL connected successfully!");
+    console.log(
+        "✅ MySQL connected successfully!"
+    );
 
 });
 
@@ -56,15 +96,16 @@ app.use("/api/expenses", expenseRoutes);
 
 app.get("/", (req, res) => {
 
-    res.json({
+    res.status(200).json({
         message: "Expense Tracker Backend is running!"
     });
 
 });
 
+
 app.get("/test-expense-route", (req, res) => {
 
-    res.json({
+    res.status(200).json({
         message: "Expense route is connected!"
     });
 
@@ -78,5 +119,9 @@ app.get("/test-expense-route", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+
+    console.log(
+        `🚀 Server running on port ${PORT}`
+    );
+
 });
