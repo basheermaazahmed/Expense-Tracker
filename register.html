@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Expense Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- Left Section -->
+        <div class="auth-info">
+
+            <div class="auth-brand">
+                <span>💳</span>
+                <h2>Expense Tracker</h2>
+            </div>
+
+            <div class="auth-info-content">
+
+                <p class="auth-tagline">
+                    TRACK • MANAGE • SAVE
+                </p>
+
+                <h1>
+                    Start managing
+                    <span>your money.</span>
+                </h1>
+
+                <p>
+                    Create your account and start tracking your
+                    expenses, understanding your spending habits,
+                    and building better financial habits.
+                </p>
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+                        <span>💰</span>
+
+                        <div>
+                            <strong>Track Every Expense</strong>
+                            <small>
+                                Keep your spending organized in one place.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>📊</span>
+
+                        <div>
+                            <strong>Visualize Your Spending</strong>
+                            <small>
+                                Understand your spending patterns easily.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>🎯</span>
+
+                        <div>
+                            <strong>Build Better Habits</strong>
+                            <small>
+                                Make smarter decisions with your money.
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Registration Section -->
+        <div class="auth-form-section">
+
+            <div class="auth-card">
+
+                <div class="auth-logo">
+                    💳
+                </div>
+
+                <h2>Create Your Account</h2>
+
+                <p class="auth-subtitle">
+                    Start tracking your expenses today.
+                </p>
+
+
+                <form id="registerForm">
+
+                    <!-- Full Name -->
+                    <div class="auth-input-group">
+
+                        <label for="registerName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="registerName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="auth-input-group">
+
+                        <label for="registerEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="auth-input-group">
+
+                        <label for="registerPassword">
+                            Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                placeholder="Create a password"
+                                minlength="8"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('registerPassword', this)"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Confirm Password -->
+                    <div class="auth-input-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm your password"
+                                minlength="8"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('confirmPassword', this)"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Terms -->
+                    <label class="remember-me terms-checkbox">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <span>
+                            I agree to the Terms & Conditions
+                        </span>
+
+                    </label>
+
+
+                    <!-- Register -->
+                    <button
+                        type="submit"
+                        class="auth-button register-button"
+                        id="registerButton"
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+
+                <!-- Login Link -->
+                <p class="auth-switch">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Login here
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // ==========================================
+        // SHOW / HIDE PASSWORD
+        // ==========================================
+
+        function togglePassword(inputId, button) {
+
+            const input = document.getElementById(inputId);
+
+            if (input.type === "password") {
+
+                input.type = "text";
+                button.textContent = "🙈";
+
+            } else {
+
+                input.type = "password";
+                button.textContent = "👁️";
+
+            }
+        }
+
+
+        // ==========================================
+        // REGISTRATION
+        // ==========================================
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const registerButton =
+            document.getElementById("registerButton");
+
+
+        registerForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                // Get form values
+                const name =
+                    document.getElementById(
+                        "registerName"
+                    ).value.trim();
+
+                const email =
+                    document.getElementById(
+                        "registerEmail"
+                    ).value.trim();
+
+                const password =
+                    document.getElementById(
+                        "registerPassword"
+                    ).value;
+
+                const confirmPassword =
+                    document.getElementById(
+                        "confirmPassword"
+                    ).value;
+
+
+                // Check password match
+                if (password !== confirmPassword) {
+
+                    alert(
+                        "Passwords do not match."
+                    );
+
+                    return;
+                }
+
+
+                // Check password length
+                if (password.length < 8) {
+
+                    alert(
+                        "Password must be at least 8 characters long."
+                    );
+
+                    return;
+                }
+
+
+                // Disable button while registering
+                registerButton.disabled = true;
+
+                registerButton.textContent =
+                    "Creating Account...";
+
+
+                try {
+
+                    // Send data to Node.js backend
+                    const response =
+                        await fetch(
+                            "http://localhost:5000/api/auth/register",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+                                    name: name,
+                                    email: email,
+                                    password: password
+                                })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    // Successful registration
+                    if (response.ok) {
+
+                        alert(
+                            "Account created successfully! Please login."
+                        );
+
+                        window.location.href =
+                            "login.html";
+
+                    }
+
+                    // Registration failed
+                    else {
+
+                        alert(
+                            data.message ||
+                            "Registration failed."
+                        );
+
+                    }
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Registration error:",
+                        error
+                    );
+
+                    alert(
+                        "Unable to connect to the server. Make sure the backend is running."
+                    );
+
+                }
+
+                finally {
+
+                    registerButton.disabled = false;
+
+                    registerButton.textContent =
+                        "Create Account";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

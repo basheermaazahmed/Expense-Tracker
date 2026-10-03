@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Profile & Settings | Expense Tracker</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <!-- Protect Profile Page -->
+    <script>
+
+        if (!localStorage.getItem("token")) {
+
+            window.location.replace("login.html");
+
+        }
+
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <span>💳</span>
+
+            <h2>
+                Expense Tracker
+            </h2>
+
+        </div>
+
+
+        <nav>
+
+            <a href="index.html">
+                🏠 Dashboard
+            </a>
+
+            <a href="index.html#expenseForm">
+                ➕ Add Expense
+            </a>
+
+            <a href="index.html#analyticsSection">
+                📊 Analytics
+            </a>
+
+            <a href="index.html#expenseTableBody">
+                📋 All Expenses
+            </a>
+
+            <a href="profile.html"
+               class="active">
+                ⚙️ Settings
+            </a>
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-logout">
+
+            <button
+                type="button"
+                id="logoutButton">
+
+                🚪 Logout
+
+            </button>
+
+        </div>
+
+
+        <div class="sidebar-quote">
+
+            <p>
+                "Small steps lead to big savings."
+            </p>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================================
+         MAIN CONTENT
+    ================================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <h1>
+                    Profile & Settings
+                </h1>
+
+                <p>
+                    Manage your account information and preferences.
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================
+             PROFILE SECTION
+        ================================= -->
+
+        <section class="profile-page">
+
+
+            <!-- PROFILE HEADER CARD -->
+
+            <div class="profile-card">
+
+                <div
+                    class="profile-avatar"
+                    id="profileAvatar">
+
+                    U
+
+                </div>
+
+
+                <div class="profile-main-info">
+
+                    <h2 id="profileName">
+                        Loading...
+                    </h2>
+
+                    <p id="profileEmail">
+                        Loading...
+                    </p>
+
+                    <span class="profile-badge">
+                        Expense Tracker User
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 PERSONAL INFORMATION
+            ================================= -->
+
+            <div class="settings-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+
+                        <h2>
+                            👤 Personal Information
+                        </h2>
+
+                        <p>
+                            Your registered account details
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EDIT PROFILE BUTTON -->
+
+                <div class="edit-profile-actions">
+
+                    <button
+                        type="button"
+                        id="editProfileButton">
+
+                        ✏️ Edit Profile
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- EDIT PROFILE FORM -->
+
+                <div
+                    id="editProfileForm"
+                    class="edit-profile-form">
+
+
+                    <div class="edit-profile-field">
+
+                        <label for="editName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editName"
+                            placeholder="Enter your full name">
+
+                    </div>
+
+
+
+                    <div class="edit-profile-field">
+
+                        <label for="editEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="editEmail"
+                            placeholder="Enter your email address">
+
+                    </div>
+
+
+
+                    <div class="edit-profile-buttons">
+
+                        <button
+                            type="button"
+                            id="saveProfileButton">
+
+                            Save Changes
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="cancelEditProfileButton">
+
+                            Cancel
+
+                        </button>
+
+                    </div>
+
+
+                    <p id="profileUpdateMessage"></p>
+
+                </div>
+
+
+
+                <!-- PROFILE DETAILS -->
+
+                <div class="profile-details">
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="profile-detail">
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <div
+                            id="detailName"
+                            class="profile-value">
+
+                            Loading...
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="profile-detail">
+
+                        <label>
+                            Email Address
+                        </label>
+
+                        <div
+                            id="detailEmail"
+                            class="profile-value">
+
+                            Loading...
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACCOUNT CREATED -->
+
+                    <div class="profile-detail">
+
+                        <label>
+                            Account Created
+                        </label>
+
+                        <div
+                            id="detailCreatedAt"
+                            class="profile-value">
+
+                            Loading...
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACCOUNT STATUS -->
+
+                    <div class="profile-detail">
+
+                        <label>
+                            Account Status
+                        </label>
+
+                        <div
+                            class="profile-value status-active">
+
+                            ● Active
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 ACCOUNT SETTINGS
+            ================================= -->
+
+            <div class="settings-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+
+                        <h2>
+                            🔐 Account
+                        </h2>
+
+                        <p>
+                            Manage your account security
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-actions">
+
+
+                    <!-- CHANGE PASSWORD -->
+
+                    <button
+                        type="button"
+                        class="settings-action"
+                        id="changePasswordButton">
+
+                        <span>
+                            🔑
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Change Password
+                            </strong>
+
+                            <small>
+                                Update your account password
+                            </small>
+
+                        </div>
+
+                        <b>
+                            →
+                        </b>
+
+                    </button>
+
+
+
+                    <!-- CHANGE PASSWORD FORM -->
+
+                    <div
+                        id="changePasswordForm"
+                        class="change-password-form">
+
+
+                        <div class="password-field">
+
+                            <label for="currentPassword">
+                                Current Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="currentPassword"
+                                placeholder="Enter your current password">
+
+                        </div>
+
+
+
+                        <div class="password-field">
+
+                            <label for="newPassword">
+                                New Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="newPassword"
+                                placeholder="Enter your new password">
+
+                        </div>
+
+
+
+                        <div class="password-field">
+
+                            <label for="confirmPassword">
+                                Confirm New Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm your new password">
+
+                        </div>
+
+
+
+                        <div class="password-form-actions">
+
+                            <button
+                                type="button"
+                                id="updatePasswordButton">
+
+                                Update Password
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="cancelPasswordButton">
+
+                                Cancel
+
+                            </button>
+
+                        </div>
+
+
+                        <p id="passwordMessage"></p>
+
+                    </div>
+
+
+
+                    <!-- LOGOUT -->
+
+                    <button
+                        type="button"
+                        class="settings-action danger"
+                        id="logoutProfileButton">
+
+                        <span>
+                            🚪
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Logout
+                            </strong>
+
+                            <small>
+                                Sign out of your account
+                            </small>
+
+                        </div>
+
+                        <b>
+                            →
+                        </b>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 PREFERENCES
+            ================================= -->
+
+            <div class="settings-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+
+                        <h2>
+                            ⚙️ Preferences
+                        </h2>
+
+                        <p>
+                            Application preferences
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preference-row">
+
+                    <div>
+
+                        <strong>
+                            Currency
+                        </strong>
+
+                        <small>
+                            Currency used for displaying expenses
+                        </small>
+
+                    </div>
+
+
+                    <select id="currencySelect">
+
+                        <option value="INR">
+                            ₹ Indian Rupee (INR)
+                        </option>
+
+                        <option value="USD">
+                            $ US Dollar (USD)
+                        </option>
+
+                        <option value="EUR">
+                            € Euro (EUR)
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script>
+
+        const token =
+            localStorage.getItem("token");
+
+
+
+        // =================================
+        // LOAD PROFILE
+        // =================================
+
+        async function loadProfile() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "http://localhost:5000/api/auth/me",
+                        {
+
+                            method: "GET",
+
+                            headers: {
+
+                                "Authorization":
+                                    "Bearer " + token
+
+                            }
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    localStorage.removeItem("token");
+
+                    localStorage.removeItem(
+                        "loggedInUser"
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                const name =
+                    data.name || "User";
+
+
+                const email =
+                    data.email || "";
+
+
+                const createdAt =
+                    data.created_at;
+
+
+
+                // PROFILE HEADER
+
+                document.getElementById(
+                    "profileName"
+                ).textContent = name;
+
+
+                document.getElementById(
+                    "profileEmail"
+                ).textContent = email;
+
+
+
+                // PROFILE DETAILS
+
+                document.getElementById(
+                    "detailName"
+                ).textContent = name;
+
+
+                document.getElementById(
+                    "detailEmail"
+                ).textContent = email;
+
+
+
+                // ACCOUNT CREATED
+
+                document.getElementById(
+                    "detailCreatedAt"
+                ).textContent =
+
+                    createdAt
+
+                        ? new Date(
+                            createdAt
+                        ).toLocaleDateString(
+                            "en-IN",
+                            {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric"
+                            }
+                        )
+
+                        : "Not available";
+
+
+
+                // AVATAR
+
+                document.getElementById(
+                    "profileAvatar"
+                ).textContent =
+
+                    name
+                        .trim()
+                        .charAt(0)
+                        .toUpperCase();
+
+
+
+                // STORE CURRENT VALUES
+                // FOR EDIT PROFILE
+
+                document.getElementById(
+                    "editName"
+                ).value = name;
+
+
+                document.getElementById(
+                    "editEmail"
+                ).value = email;
+
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to load your profile."
+                );
+
+            }
+
+        }
+
+
+
+        // =================================
+        // LOGOUT
+        // =================================
+
+        function logoutUser() {
+
+            localStorage.removeItem("token");
+
+            localStorage.removeItem(
+                "loggedInUser"
+            );
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        document.getElementById(
+            "logoutButton"
+        ).addEventListener(
+            "click",
+            logoutUser
+        );
+
+
+        document.getElementById(
+            "logoutProfileButton"
+        ).addEventListener(
+            "click",
+            logoutUser
+        );
+
+
+
+        // =================================
+        // EDIT PROFILE
+        // =================================
+
+        const editProfileButton =
+            document.getElementById(
+                "editProfileButton"
+            );
+
+
+        const editProfileForm =
+            document.getElementById(
+                "editProfileForm"
+            );
+
+
+        const saveProfileButton =
+            document.getElementById(
+                "saveProfileButton"
+            );
+
+
+        const cancelEditProfileButton =
+            document.getElementById(
+                "cancelEditProfileButton"
+            );
+
+
+        const profileUpdateMessage =
+            document.getElementById(
+                "profileUpdateMessage"
+            );
+
+
+
+        // OPEN EDIT FORM
+
+        editProfileButton.addEventListener(
+            "click",
+            function () {
+
+                editProfileForm.style.display =
+                    "block";
+
+                profileUpdateMessage.textContent =
+                    "";
+
+            }
+        );
+
+
+
+        // CANCEL EDIT
+
+        cancelEditProfileButton.addEventListener(
+            "click",
+            function () {
+
+                editProfileForm.style.display =
+                    "none";
+
+                profileUpdateMessage.textContent =
+                    "";
+
+                loadProfile();
+
+            }
+        );
+
+
+
+        // SAVE PROFILE
+
+        saveProfileButton.addEventListener(
+            "click",
+            async function () {
+
+
+                const name =
+                    document.getElementById(
+                        "editName"
+                    ).value.trim();
+
+
+                const email =
+                    document.getElementById(
+                        "editEmail"
+                    ).value.trim();
+
+
+                // VALIDATION
+
+                if (!name || !email) {
+
+                    profileUpdateMessage.textContent =
+                        "Please fill in both fields.";
+
+                    profileUpdateMessage.style.color =
+                        "#c62828";
+
+                    return;
+
+                }
+
+
+                if (name.length < 2) {
+
+                    profileUpdateMessage.textContent =
+                        "Name must be at least 2 characters.";
+
+                    profileUpdateMessage.style.color =
+                        "#c62828";
+
+                    return;
+
+                }
+
+
+                const emailRegex =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (!emailRegex.test(email)) {
+
+                    profileUpdateMessage.textContent =
+                        "Please enter a valid email address.";
+
+                    profileUpdateMessage.style.color =
+                        "#c62828";
+
+                    return;
+
+                }
+
+
+
+                try {
+
+                    saveProfileButton.disabled =
+                        true;
+
+                    saveProfileButton.textContent =
+                        "Saving...";
+
+
+                    const response =
+                        await fetch(
+                            "http://localhost:5000/api/auth/profile",
+                            {
+
+                                method: "PUT",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Authorization":
+                                        "Bearer " + token
+
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        name: name,
+
+                                        email: email
+
+                                    })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        profileUpdateMessage.textContent =
+                            data.message ||
+                            "Could not update profile.";
+
+                        profileUpdateMessage.style.color =
+                            "#c62828";
+
+
+                        saveProfileButton.disabled =
+                            false;
+
+                        saveProfileButton.textContent =
+                            "Save Changes";
+
+                        return;
+
+                    }
+
+
+
+                    // UPDATE LOCAL USER DATA
+
+                    const currentUser =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "loggedInUser"
+                            ) || "{}"
+                        );
+
+
+                    currentUser.name =
+                        data.user.name;
+
+
+                    currentUser.email =
+                        data.user.email;
+
+
+                    localStorage.setItem(
+                        "loggedInUser",
+                        JSON.stringify(
+                            currentUser
+                        )
+                    );
+
+
+
+                    profileUpdateMessage.textContent =
+                        "Profile updated successfully!";
+
+                    profileUpdateMessage.style.color =
+                        "#159447";
+
+
+
+                    saveProfileButton.disabled =
+                        false;
+
+                    saveProfileButton.textContent =
+                        "Save Changes";
+
+
+
+                    // RELOAD PROFILE
+
+                    await loadProfile();
+
+
+                    setTimeout(
+                        function () {
+
+                            editProfileForm.style.display =
+                                "none";
+
+                            profileUpdateMessage.textContent =
+                                "";
+
+                        },
+                        1200
+                    );
+
+
+                }
+
+                catch (error) {
+
+                    console.error(error);
+
+
+                    profileUpdateMessage.textContent =
+                        "Unable to connect to the server.";
+
+                    profileUpdateMessage.style.color =
+                        "#c62828";
+
+
+                    saveProfileButton.disabled =
+                        false;
+
+                    saveProfileButton.textContent =
+                        "Save Changes";
+
+                }
+
+            }
+        );
+
+
+
+        // =================================
+        // CHANGE PASSWORD
+        // =================================
+
+        const changePasswordButton =
+            document.getElementById(
+                "changePasswordButton"
+            );
+
+
+        const changePasswordForm =
+            document.getElementById(
+                "changePasswordForm"
+            );
+
+
+        const updatePasswordButton =
+            document.getElementById(
+                "updatePasswordButton"
+            );
+
+
+        const cancelPasswordButton =
+            document.getElementById(
+                "cancelPasswordButton"
+            );
+
+
+        const passwordMessage =
+            document.getElementById(
+                "passwordMessage"
+            );
+
+
+
+        // OPEN PASSWORD FORM
+
+        changePasswordButton.addEventListener(
+            "click",
+            function () {
+
+                changePasswordForm.style.display =
+                    "block";
+
+                passwordMessage.textContent =
+                    "";
+
+            }
+        );
+
+
+
+        // CANCEL PASSWORD
+
+        cancelPasswordButton.addEventListener(
+            "click",
+            function () {
+
+                changePasswordForm.style.display =
+                    "none";
+
+
+                document.getElementById(
+                    "currentPassword"
+                ).value = "";
+
+
+                document.getElementById(
+                    "newPassword"
+                ).value = "";
+
+
+                document.getElementById(
+                    "confirmPassword"
+                ).value = "";
+
+
+                passwordMessage.textContent =
+                    "";
+
+            }
+        );
+
+
+
+        // UPDATE PASSWORD
+
+        updatePasswordButton.addEventListener(
+            "click",
+            async function () {
+
+
+                const currentPassword =
+                    document.getElementById(
+                        "currentPassword"
+                    ).value;
+
+
+                const newPassword =
+                    document.getElementById(
+                        "newPassword"
+                    ).value;
+
+
+                const confirmPassword =
+                    document.getElementById(
+                        "confirmPassword"
+                    ).value;
+
+
+
+                // EMPTY FIELDS
+
+                if (
+                    !currentPassword ||
+                    !newPassword ||
+                    !confirmPassword
+                ) {
+
+                    passwordMessage.textContent =
+                        "Please fill in all fields.";
+
+                    passwordMessage.style.color =
+                        "#c62828";
+
+                    return;
+
+                }
+
+
+
+                // PASSWORD LENGTH
+
+                if (
+                    newPassword.length < 6
+                ) {
+
+                    passwordMessage.textContent =
+                        "New password must be at least 6 characters.";
+
+                    passwordMessage.style.color =
+                        "#c62828";
+
+                    return;
+
+                }
+
+
+
+                // PASSWORD MATCH
+
+                if (
+                    newPassword !==
+                    confirmPassword
+                ) {
+
+                    passwordMessage.textContent =
+                        "New passwords do not match.";
+
+                    passwordMessage.style.color =
+                        "#c62828";
+
+                    return;
+
+                }
+
+
+
+                try {
+
+                    updatePasswordButton.disabled =
+                        true;
+
+                    updatePasswordButton.textContent =
+                        "Updating...";
+
+
+                    const response =
+                        await fetch(
+                            "http://localhost:5000/api/auth/change-password",
+                            {
+
+                                method: "PUT",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Authorization":
+                                        "Bearer " + token
+
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        currentPassword:
+                                            currentPassword,
+
+                                        newPassword:
+                                            newPassword
+
+                                    })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        passwordMessage.textContent =
+                            data.message ||
+                            "Could not change password.";
+
+                        passwordMessage.style.color =
+                            "#c62828";
+
+
+                        updatePasswordButton.disabled =
+                            false;
+
+                        updatePasswordButton.textContent =
+                            "Update Password";
+
+                        return;
+
+                    }
+
+
+
+                    passwordMessage.textContent =
+                        "Password changed successfully!";
+
+                    passwordMessage.style.color =
+                        "#159447";
+
+
+
+                    document.getElementById(
+                        "currentPassword"
+                    ).value = "";
+
+
+                    document.getElementById(
+                        "newPassword"
+                    ).value = "";
+
+
+                    document.getElementById(
+                        "confirmPassword"
+                    ).value = "";
+
+
+                    updatePasswordButton.disabled =
+                        false;
+
+                    updatePasswordButton.textContent =
+                        "Update Password";
+
+
+                }
+
+                catch (error) {
+
+                    console.error(error);
+
+
+                    passwordMessage.textContent =
+                        "Unable to connect to the server.";
+
+                    passwordMessage.style.color =
+                        "#c62828";
+
+
+                    updatePasswordButton.disabled =
+                        false;
+
+                    updatePasswordButton.textContent =
+                        "Update Password";
+
+                }
+
+            }
+        );
+
+
+
+        // =================================
+        // INITIAL LOAD
+        // =================================
+
+        loadProfile();
+// =========================
+// CURRENCY PREFERENCE
+// =========================
+
+const currencySelect = document.getElementById("currencySelect");
+
+if (currencySelect) {
+
+    // Load saved currency
+    const savedCurrency =
+        localStorage.getItem("currency") || "INR";
+
+    currencySelect.value = savedCurrency;
+
+    // Save when changed
+    currencySelect.addEventListener("change", function () {
+
+        localStorage.setItem(
+            "currency",
+            this.value
+        );
+
+        alert(
+            "Currency changed to " + this.value
+        );
+    });
+}
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Expense Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- Left Section -->
+        <div class="auth-info">
+
+            <div class="auth-brand">
+                <span>💳</span>
+                <h2>Expense Tracker</h2>
+            </div>
+
+            <div class="auth-info-content">
+
+                <p class="auth-tagline">
+                    TRACK • MANAGE • SAVE
+                </p>
+
+                <h1>
+                    Take control of
+                    <span>your expenses.</span>
+                </h1>
+
+                <p>
+                    Track your spending, understand your habits,
+                    and manage your money smarter — all in one place.
+                </p>
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+                        <span>📊</span>
+
+                        <div>
+                            <strong>Track Expenses</strong>
+                            <small>
+                                Keep all your transactions organized.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>📈</span>
+
+                        <div>
+                            <strong>Understand Spending</strong>
+                            <small>
+                                See where your money goes.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>🔒</span>
+
+                        <div>
+                            <strong>Private & Secure</strong>
+                            <small>
+                                Your financial data stays protected.
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Login Card -->
+        <div class="auth-form-section">
+
+            <div class="auth-card">
+
+                <div class="auth-logo">
+                    💳
+                </div>
+
+                <h2>Welcome Back!</h2>
+
+                <p class="auth-subtitle">
+                    Login to continue tracking your expenses.
+                </p>
+
+
+                <form id="loginForm">
+
+                    <!-- Email -->
+                    <div class="auth-input-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="auth-input-group">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('loginPassword', this)"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Remember Me -->
+                    <div class="auth-options">
+
+                        <label class="remember-me">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                            >
+
+                            <span>
+                                Remember me
+                            </span>
+
+                        </label>
+
+                        <a href="#" class="forgot-password">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- Login Button -->
+                    <button
+                        type="submit"
+                        class="auth-button"
+                        id="loginButton"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <!-- Divider -->
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+
+
+                <!-- Google Button -->
+                <button
+                    class="google-button"
+                    type="button"
+                >
+                    <span>G</span>
+                    Continue with Google
+                </button>
+
+
+                <!-- Register Link -->
+                <p class="auth-switch">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Register here
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // ==========================================
+        // SHOW / HIDE PASSWORD
+        // ==========================================
+
+        function togglePassword(inputId, button) {
+
+            const input =
+                document.getElementById(inputId);
+
+            if (input.type === "password") {
+
+                input.type = "text";
+
+                button.textContent = "🙈";
+
+            } else {
+
+                input.type = "password";
+
+                button.textContent = "👁️";
+
+            }
+
+        }
+
+
+        // ==========================================
+        // LOGIN
+        // ==========================================
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                // Get email
+                const email =
+                    document.getElementById(
+                        "loginEmail"
+                    ).value.trim();
+
+
+                // Get password
+                const password =
+                    document.getElementById(
+                        "loginPassword"
+                    ).value;
+
+
+                // Disable button
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Logging in...";
+
+
+                try {
+
+                    // ==========================================
+                    // SEND LOGIN REQUEST TO BACKEND
+                    // ==========================================
+
+                    const response =
+                        await fetch(
+                            "http://localhost:5000/api/auth/login",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+                                    email: email,
+                                    password: password
+                                })
+                            }
+                        );
+
+
+                    // Convert response to JSON
+                    const data =
+                        await response.json();
+
+
+                    // ==========================================
+                    // LOGIN SUCCESSFUL
+                    // ==========================================
+
+                    if (response.ok) {
+
+                        // Store JWT token
+                        localStorage.setItem(
+                            "token",
+                            data.token
+                        );
+
+
+                        // Store user information
+                        localStorage.setItem(
+                            "loggedInUser",
+                            JSON.stringify(data.user)
+                        );
+
+
+                        alert(
+                            "Login successful!"
+                        );
+
+
+                        // Go to dashboard
+                        window.location.href =
+                            "index.html";
+
+                    }
+
+
+                    // ==========================================
+                    // LOGIN FAILED
+                    // ==========================================
+
+                    else {
+
+                        alert(
+                            data.message ||
+                            "Invalid email or password."
+                        );
+
+                    }
+
+                }
+
+
+                // ==========================================
+                // SERVER CONNECTION ERROR
+                // ==========================================
+
+                catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+                    alert(
+                        "Unable to connect to the server. Make sure the backend is running."
+                    );
+
+                }
+
+
+                // ==========================================
+                // ENABLE BUTTON AGAIN
+                // ==========================================
+
+                finally {
+
+                    loginButton.disabled = false;
+
+                    loginButton.textContent =
+                        "Login";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
