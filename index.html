@@ -61,7 +61,9 @@
                 📋 All Expenses
             </a>
 
-            <a href="profile.html">⚙️ Settings</a>
+            <a href="profile.html">
+                ⚙️ Settings
+            </a>
 
         </nav>
 
@@ -559,15 +561,31 @@
         </section>
 
 
-<div class="report-buttons">
-    <button onclick="exportCSV()" class="report-btn">
-        📊 Export CSV
-    </button>
 
-    <button onclick="exportPDF()" class="report-btn">
-        📄 Export PDF
-    </button>
-</div>
+        <!-- =================================
+             REPORT BUTTONS
+        ================================== -->
+
+        <div class="report-buttons">
+
+            <button
+                onclick="exportCSV()"
+                class="report-btn"
+            >
+                📊 Export CSV
+            </button>
+
+            <button
+                onclick="exportPDF()"
+                class="report-btn"
+            >
+                📄 Export PDF
+            </button>
+
+        </div>
+
+
+
         <!-- =================================
              RECENT EXPENSES
         ================================== -->
@@ -805,49 +823,95 @@
                     </div>
 
                 </div>
-<div class="analytics-card">
 
-    <span>💸</span>
 
-    <div>
-        <p>Highest Expense</p>
-        <h3 id="analyticsHighestExpense">₹0</h3>
-    </div>
 
-</div>
+                <div class="analytics-card">
 
-<div class="analytics-card">
+                    <span>
+                        💸
+                    </span>
 
-    <span>🪙</span>
+                    <div>
 
-    <div>
-        <p>Lowest Expense</p>
-        <h3 id="analyticsLowestExpense">₹0</h3>
-    </div>
+                        <p>
+                            Highest Expense
+                        </p>
 
-</div>
+                        <h3 id="analyticsHighestExpense">
+                            ₹0
+                        </h3>
 
-<div class="analytics-card">
+                    </div>
 
-    <span>📅</span>
+                </div>
 
-    <div>
-        <p>Average Daily Spending</p>
-        <h3 id="analyticsDailyAverage">₹0</h3>
-    </div>
 
-</div>
 
-<div class="analytics-card">
+                <div class="analytics-card">
 
-    <span>📈</span>
+                    <span>
+                        🪙
+                    </span>
 
-    <div>
-        <p>Month Comparison</p>
-        <h3 id="analyticsMonthComparison">0%</h3>
-    </div>
+                    <div>
 
-</div>
+                        <p>
+                            Lowest Expense
+                        </p>
+
+                        <h3 id="analyticsLowestExpense">
+                            ₹0
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="analytics-card">
+
+                    <span>
+                        📅
+                    </span>
+
+                    <div>
+
+                        <p>
+                            Average Daily Spending
+                        </p>
+
+                        <h3 id="analyticsDailyAverage">
+                            ₹0
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="analytics-card">
+
+                    <span>
+                        📈
+                    </span>
+
+                    <div>
+
+                        <p>
+                            Month Comparison
+                        </p>
+
+                        <h3 id="analyticsMonthComparison">
+                            0%
+                        </h3>
+
+                    </div>
+
+                </div>
+
 
             </div>
 
@@ -933,6 +997,11 @@
          MAIN JAVASCRIPT
     ================================== -->
 
+    <!-- jsPDF must load before script.js because
+         script.js contains exportPDF() -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- LOAD SCRIPT.JS ONLY ONCE -->
     <script src="script.js"></script>
 
 
@@ -947,7 +1016,7 @@
 
         const loggedInUser =
             JSON.parse(
-                localStorage.getItem("loggedInUser")
+                localStorage.getItem("loggedInUser") || "null"
             );
 
 
@@ -959,7 +1028,8 @@
 
         if (
             loggedInUser &&
-            loggedInUser.name
+            loggedInUser.name &&
+            welcomeMessage
         ) {
 
             welcomeMessage.textContent =
@@ -1022,13 +1092,16 @@
                 );
 
 
-        currentDateButton.textContent =
-            `📅 ${formattedDate}`;
+        if (currentDateButton) {
+
+            currentDateButton.textContent =
+                `📅 ${formattedDate}`;
+
+        }
 
     </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="script.js"></script>
+
 </body>
 
 </html>
