@@ -38,7 +38,7 @@ const categoryFilter =
 // =================================
 
 const API_URL =
-    "http://localhost:5000/api/expenses";
+    "https://expense-tracker-backend-0sta.onrender.com/api/expenses";
 
 
 // =================================
@@ -195,16 +195,14 @@ async function loadExpenses() {
 
     } catch (error) {
 
-        console.error(
-            "Error loading expenses:",
-            error
-        );
+    console.error("Error loading expenses:", error);
 
-        alert(
-            "Unable to load your expenses. Please make sure the backend is running."
-        );
+    alert(
+        "LOAD ERROR:\n" +
+        error.message
+    );
 
-    }
+}
 
 }
 // =================================
